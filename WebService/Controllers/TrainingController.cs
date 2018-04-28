@@ -1,4 +1,5 @@
 ﻿using Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +23,15 @@ namespace WebService.Controllers
         public IHttpActionResult GetAllTrainingsobjects(int userid)
         {
             return Ok(trainingService.GetAllTrainingsObjects(userid));
+        }
+
+        
+        [HttpPost]
+        [ActionName("insertobject")]
+        public IHttpActionResult InsertObject([FromBody]Trainingsobject trainingsobject)
+        {
+            
+            return Ok(trainingService.InsertObject(trainingsobject, trainingsobject.Owner));
         }
 
     }

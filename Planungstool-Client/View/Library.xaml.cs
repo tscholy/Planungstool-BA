@@ -23,14 +23,23 @@ namespace Planungstool_Client.View
     /// </summary>
     public partial class Library : UserControl
     {
-        TrainingRestClient trainingRestClient = new TrainingRestClient(2);
+        LibraryViewModel libraryViewModel = new LibraryViewModel();
+        TrainingRestClient trainingRestClient;
+        private User currentUser;
+
         public Library(User currentUser)
         {
             InitializeComponent();
-            LibraryViewModel libraryViewModel = new LibraryViewModel();
+            this.currentUser = currentUser;
+            trainingRestClient = new TrainingRestClient(currentUser.Id);
             this.DataContext = libraryViewModel;
             libraryViewModel.CurrentTrainingsobjects = trainingRestClient.GetAllTrainingsobjectsForUser(currentUser.Id);
 
+        }
+
+        private void Button_Click_UploadNewTrainingsobject(object sender, RoutedEventArgs e)
+        {
+            libraryViewModel.NewUploadObjectControl = new Upload(currentUser, libraryViewModel);
         }
     }
 }

@@ -11,7 +11,10 @@
         <converter:ByteToImageSourceConverter x:Key="ByteToImageSourceConverter" />
     </UserControl.Resources>
     <DockPanel Background="#FFE5E5E5">
-        <Label DockPanel.Dock="Top">Trainingsobjekte</Label>
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+            <Label>Trainingsobjekte</Label>
+            <Button  Content="Neues Trainingsobjekt uploaden" Margin="50,0,0,0" Click="Button_Click_UploadNewTrainingsobject"></Button>
+        </StackPanel>
         <ListView DockPanel.Dock="Top" ItemsSource="{Binding CurrentTrainingsobjects}">
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -38,6 +41,7 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+        <ContentControl DockPanel.Dock="Top" Content="{Binding NewUploadObjectControl}"/>
         <Label DockPanel.Dock="Top">Trainingsübungen</Label>
         <Label DockPanel.Dock="Top">Trainingseinheiten</Label>
     </DockPanel>

@@ -22,6 +22,8 @@ namespace Models
         public string Accessibility { get; set; }
         [JsonProperty]
         public byte[] Image { get; set; }
+        [JsonProperty]
+        public int Owner { get; set; }
 
     }
 }

@@ -39,6 +39,32 @@ namespace Planungstool_Client.WebService
             return new List<Trainingsobject>();
         }
 
+
+
+        public bool SaveObject(Trainingsobject tobject)
+        {
+            try
+            {
+                var request = new RestRequest("training/insertobject", Method.POST);
+
+
+                var json = JsonConvert.SerializeObject(tobject);
+                request.AddParameter("text/json", json, ParameterType.RequestBody);
+                IRestResponse response = client.Execute<List<Trainingsobject>>(request);
+                List<Trainingsobject> objects = JsonConvert.DeserializeObject<List<Trainingsobject>>(response.Content);
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    return true;
+                }
+
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+            return false;
+        }
+
         public IEnumerable<T> Get<T>(string route)
         {
             var request = new RestRequest(route, Method.GET);

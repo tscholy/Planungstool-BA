@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\Christina\Documents\Visual Studio 2017\Projects\Planungstool-BA\Planungstool-Client\obj\Debug\
+C:\Users\Christina\Documents\Visual Studio 2017\Projects\BA\Planungstool-BA\Planungstool-Client\obj\Debug\
 Planungstool_Client
 none
 false
 DEBUG;TRACE
-C:\Users\Christina\Documents\Visual Studio 2017\Projects\Planungstool-BA\Planungstool-Client\App.xaml
-4912502217
+C:\Users\Christina\Documents\Visual Studio 2017\Projects\BA\Planungstool-BA\Planungstool-Client\App.xaml
+5-1102024731
 
-20-1519559661
-128-1316036861
-View\Editor.xaml;View\Library.xaml;View\Login.xaml;MainWindow.xaml;
+21-1271075283
+1281157096880
+View\Editor.xaml;View\Library.xaml;View\Login.xaml;MainWindow.xaml;View\Upload.xaml;
 
-True
+False
 

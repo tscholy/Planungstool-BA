@@ -21,5 +21,16 @@ namespace WebService.Models
             return newObjects;
           
         }
+
+        internal object InsertObject(Trainingsobject trainingsobject, int userid)
+        {
+            List<Trainingsobject> newObjects = new List<Trainingsobject>();
+            using (IDbConnection connection = provider.GetConnection())
+            {
+                newObjects = trainingsDataRepository.InsertObject(connection, userid, trainingsobject);
+            }
+
+            return newObjects;
+        }
     }
 }

@@ -85,6 +85,9 @@
     <Compile Include="View\Library.xaml.cs">
       <DependentUpon>Library.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Upload.xaml.cs">
+      <DependentUpon>Upload.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WebService\BaseRestClient.cs" />
     <Compile Include="WebService\TrainingRestClient.cs" />
     <Compile Include="WebService\UserRestClient.cs" />
@@ -118,6 +121,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\Upload.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
