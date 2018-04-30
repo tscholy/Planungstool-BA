@@ -1,0 +1,55 @@
+﻿<UserControl x:Class="Planungstool_Client.View.Community"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Planungstool_Client.View"
+             xmlns:converter="clr-namespace:Planungstool_Client.Converter"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <converter:ByteToImageSourceConverter x:Key="ByteToImageSourceConverter" />
+    </UserControl.Resources>
+    <DockPanel Background="#FFE5E5E5" LastChildFill="False">
+        <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+            <Label FontSize="20"> Search for ... </Label>
+            <TextBox MinWidth="100"></TextBox>
+            <Button Content="Search"></Button>            
+        </StackPanel>
+        <DockPanel DockPanel.Dock="Top" LastChildFill="True">
+            <DockPanel DockPanel.Dock="Right">
+                <Label DockPanel.Dock="Top" Content="Name" FontStyle="Oblique"/>
+                <Label DockPanel.Dock="Top" Content="{Binding Path=SelectedTrainObject.Name}"/>
+                <Label DockPanel.Dock="Top" Content="Beschreibung" FontStyle="Oblique"/>
+                <Label DockPanel.Dock="Top" Content="{Binding Path=SelectedTrainObject.Description}"/>
+                <Image MaxHeight="200" Source="{Binding Path=SelectedTrainObject.Image}"/>
+            </DockPanel>
+            <ListView ItemsSource="{Binding CurrentPublicTrainingsobjects}" SelectionChanged="SelectionChanged_Objects">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"></StackPanel>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition MaxHeight="5" MinHeight="5"/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition MaxHeight="5" MinHeight="5"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition MaxWidth="5" MinWidth="5"/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition MaxWidth="5" MinWidth="5"/>
+                            </Grid.ColumnDefinitions>
+                            <Image Source="{Binding Image, Converter={StaticResource ByteToImageSourceConverter}}" Grid.Column="1" Grid.Row="1" MaxWidth="40" MaxHeight="40"/>
+                            <Label Content="{Binding Name}" Grid.Column="1" Grid.Row="2"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </DockPanel>
+    </DockPanel> 
+</UserControl>

@@ -13,6 +13,7 @@ namespace Planungstool_Client.WebService
 {
     public class TrainingRestClient : BaseRestClient
     {
+
         public TrainingRestClient(int userId) : base(userId)
         {
                        
@@ -39,7 +40,25 @@ namespace Planungstool_Client.WebService
             return new List<Trainingsobject>();
         }
 
+        internal List<Trainingsobject> GetAllPublicTrainingsobjects()
+        {
+            try
+            {
+                var request = new RestRequest("training/allpublictrainingsobjects", Method.GET);
+                IRestResponse response = client.Execute(request);
+                List<Trainingsobject> objects = JsonConvert.DeserializeObject<List<Trainingsobject>>(response.Content);
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    return objects;
+                }
 
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+            return new List<Trainingsobject>();
+        }
 
         public bool SaveObject(Trainingsobject tobject)
         {
@@ -65,20 +84,5 @@ namespace Planungstool_Client.WebService
             return false;
         }
 
-        public IEnumerable<T> Get<T>(string route)
-        {
-            var request = new RestRequest(route, Method.GET);
-            request.AddParameter("userid", userID);
-            IRestResponse response = client.Execute(request);
-            List<T> objects = JsonConvert.DeserializeObject<List<T>>(response.Content);
-            if (response.StatusCode == System.Net.HttpStatusCode.OK)
-            {
-                return objects;
-            }
-            else
-            {
-                return null;
-            }
-        }
     }
 }

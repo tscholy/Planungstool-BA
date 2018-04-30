@@ -1,4 +1,5 @@
-﻿using RestSharp;
+﻿using Newtonsoft.Json;
+using RestSharp;
 using RestSharp.Deserializers;
 using System;
 using System.Collections.Generic;
@@ -19,5 +20,22 @@ namespace Planungstool_Client.WebService
         }
 
         protected int userID;
+
+
+        public IEnumerable<T> Get<T>(string route)
+        {
+            var request = new RestRequest(route, Method.GET);
+            request.AddParameter("userid", userID);
+            IRestResponse response = client.Execute(request);
+            List<T> objects = JsonConvert.DeserializeObject<List<T>>(response.Content);
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                return objects;
+            }
+            else
+            {
+                return null;
+            }
+        }
     }
 }

@@ -26,6 +26,11 @@ namespace Planungstool_Client.View
             InitializeComponent();
             Library library = new Library(currentUser);
             libTabItem.Content = library;
+            Community community = new Community(currentUser);
+            comTabItem.Content = community;
+            Exercise exercise = new Exercise(currentUser);
+            exerTabItem.Content = exercise;
+
         }
     }
 }

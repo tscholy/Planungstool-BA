@@ -27,7 +27,6 @@
                                     <ControlTemplate.Triggers>
                                         <Trigger Property="IsSelected" Value="True">
                                             <Setter TargetName="Border" Property="Background" Value="#FF86BF4E" />
-                                            
                                         </Trigger>
                                         <Trigger Property="IsSelected" Value="False">
                                             <Setter TargetName="Border" Property="Background" Value="GhostWhite" />
@@ -38,9 +37,9 @@
                         </Setter>
                     </Style>
                 </TabControl.Resources>
-                <TabItem Header="Neue Übung planen" Margin="0"/>
+                <TabItem x:Name="exerTabItem" Header="Neue Übung planen" Margin="0"/>
                 <TabItem x:Name="libTabItem" Header="Meine Bibliothek" Margin="0"/>
-                <TabItem  Header="Community" Margin="0"/>
+                <TabItem x:Name="comTabItem" Header="Community" Margin="0"/>
             </TabControl>
         </DockPanel>
     </Grid>

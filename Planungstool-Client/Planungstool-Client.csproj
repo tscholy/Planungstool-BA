@@ -33,6 +33,12 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Final-look.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <NoWin32Manifest>true</NoWin32Manifest>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
@@ -78,9 +84,17 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converter\ByteToImageSourceConverter.cs" />
+    <Compile Include="ViewModel\ExerciseViewModel.cs" />
+    <Compile Include="ViewModel\CommunityViewModel.cs" />
     <Compile Include="ViewModel\LibraryViewModel.cs" />
+    <Compile Include="View\Community.xaml.cs">
+      <DependentUpon>Community.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Editor.xaml.cs">
       <DependentUpon>Editor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Exercise.xaml.cs">
+      <DependentUpon>Exercise.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Library.xaml.cs">
       <DependentUpon>Library.xaml</DependentUpon>
@@ -91,7 +105,15 @@
     <Compile Include="WebService\BaseRestClient.cs" />
     <Compile Include="WebService\TrainingRestClient.cs" />
     <Compile Include="WebService\UserRestClient.cs" />
+    <Page Include="View\Community.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Editor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Exercise.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -141,7 +163,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="packages.config" />
@@ -164,6 +186,12 @@
       <Project>{338f3087-8c6c-42f8-a98a-b00cbea26dab}</Project>
       <Name>Models</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Final-look.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\soccer_field.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

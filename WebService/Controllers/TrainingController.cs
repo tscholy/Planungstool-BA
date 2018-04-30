@@ -34,5 +34,12 @@ namespace WebService.Controllers
             return Ok(trainingService.InsertObject(trainingsobject, trainingsobject.Owner));
         }
 
+        [HttpGet]
+        [ActionName("allpublictrainingsobjects")]
+        public IHttpActionResult GetAllPublicTrainingsobjects()
+        {
+            return Ok(trainingService.GetAllPublicTrainingsObjects());
+        }
+
     }
 }

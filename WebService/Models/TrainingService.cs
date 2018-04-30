@@ -32,5 +32,16 @@ namespace WebService.Models
 
             return newObjects;
         }
+
+        internal object GetAllPublicTrainingsObjects()
+        {
+            List<Trainingsobject> newObjects = new List<Trainingsobject>();
+            using (IDbConnection connection = provider.GetConnection())
+            {
+                newObjects = trainingsDataRepository.GetAllPublicTrainingsObjects(connection);
+            }
+
+            return newObjects;
+        }
     }
 }

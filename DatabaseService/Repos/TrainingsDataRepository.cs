@@ -27,5 +27,11 @@ namespace DatabaseService.Repos
             connection.Query("INSERT INTO trainingsobject(name, description, accessibility, image, owner) VALUES(@name,@description,@accessibility,@image,@owner)", new { name = trainingsobject.Name, description = trainingsobject.Description, accessibility = trainingsobject.Accessibility, image = trainingsobject.Image, owner = trainingsobject.Owner });
             return connection.Query<Trainingsobject>("SELECT * FROM user_trainingsobject a JOIN trainingsobject b ON a.ID_trainingsobject = b.ID WHERE a.ID_user = @userID", new { userID = userID }).ToList();
         }
+
+        public List<Trainingsobject> GetAllPublicTrainingsObjects(IDbConnection dbConnection)
+        {
+            return dbConnection.Query<Trainingsobject>("SELECT * FROM trainingsobject WHERE accessibility = 'public'").ToList();
+        }
+
     }
 }
