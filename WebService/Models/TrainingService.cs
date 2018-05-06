@@ -118,5 +118,13 @@ namespace WebService.Models
 
             return newObjects;
         }
+        internal bool InsertUserTrainingsObject(int trainObj, int user)
+        {
+            using (IDbConnection connection = provider.GetConnection())
+            {
+               trainingsDataRepository.InsertUserTrainingsObject(connection, trainObj, user);
+            }
+            return true;
+        }
     }
 }

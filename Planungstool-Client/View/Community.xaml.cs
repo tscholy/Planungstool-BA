@@ -35,13 +35,25 @@ namespace Planungstool_Client.View
 
         private void SelectionChanged_Objects(object sender, SelectionChangedEventArgs e)
         {
-           
+            labelDescriptionObject.Visibility = Visibility.Visible;
+            labelNameObject.Visibility = Visibility.Visible;
+            buttonAddObject.Visibility = Visibility.Visible;
             communityViewModel.SelectedTrainObject = (Trainingsobject)((ListView)sender).SelectedItem;
         }
         private void SelectionChanged_Exercise(object sender, SelectionChangedEventArgs e)
         {
-            
+            labelNameExercise.Visibility = Visibility.Visible;
+            labelProcessExercise.Visibility = Visibility.Visible;
+            labelTypeExercise.Visibility = Visibility.Visible;
             communityViewModel.SelectedTrainExercise = (Trainingsexercise)((ListView)sender).SelectedItem;
+        }
+
+        private void Button_AddObject(object sender, RoutedEventArgs e)
+        {
+            if(communityViewModel.AddObjectToUser())
+            {
+                MessageBox.Show("Trainingsobjekt wurde erfolgreich hinzugefügt.");
+            }
         }
     }
 }

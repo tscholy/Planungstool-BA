@@ -11,7 +11,7 @@
         <converter:BitmapToImageSourceConverter x:Key="BitmapToImageSourceConverter" />
         <converter:ByteToImageSourceConverter x:Key="ByteToImageSourceConverter" />
     </UserControl.Resources>
-    <DockPanel Background="#FFE5E5E5" LastChildFill="False">
+    <DockPanel Background="#FFE5E5E5" LastChildFill="true">
         <Label DockPanel.Dock="Top" FontSize="20">Neue Übung planen</Label>
         <ScrollViewer DockPanel.Dock="Top" Background="Transparent">
             <ListView Background="Transparent" ItemsSource="{Binding CurrentTrainObjects}">
@@ -60,7 +60,7 @@
             </StackPanel>
             <Button Content="Upload" DockPanel.Dock="Top" FontSize="20" Foreground="White" Background="#FF86BF4E" Click="Button_Click_SaveExercise"/>
         </DockPanel>
-        <Canvas x:Name="canvas" DockPanel.Dock="Top" MinWidth="500" MinHeight="500" AllowDrop="True">
+        <Canvas x:Name="canvas" MinWidth="500" MinHeight="500" AllowDrop="True">
             <Canvas.Background>
                 <ImageBrush ImageSource="{Binding Path=CurrentField, Converter={StaticResource BitmapToImageSourceConverter}}"/>
             </Canvas.Background>

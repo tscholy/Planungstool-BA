@@ -19,7 +19,7 @@ namespace DatabaseService.Repos
 
         public List<Trainingsobject> GetAllTrainingsObjects(IDbConnection dbConnection, int userID)
         {
-            return dbConnection.Query<Trainingsobject>("SELECT * FROM user_trainingsobject a JOIN trainingsobject b ON a.ID_trainingsobject = b.ID WHERE a.ID_user = @userID  OR b.accessibility = 'public' GROUP BY b.ID", new { userID = userID }).ToList();
+            return dbConnection.Query<Trainingsobject>("SELECT * FROM user_trainingsobject a JOIN trainingsobject b ON a.ID_trainingsobject = b.ID WHERE a.ID_user = @userID  OR b.owner = @userID GROUP BY b.ID", new { userID = userID }).ToList();
         }
 
         public List<Trainingsobject> InsertObject(IDbConnection connection, int userID, Trainingsobject trainingsobject)
@@ -41,6 +41,10 @@ namespace DatabaseService.Repos
         public Trainingsexercise InsertExercise(IDbConnection connection, Trainingsexercise trainingsexercise, int owner)
         {
             return connection.Query<Trainingsexercise>("INSERT INTO trainingexercise(name, process, accessibility, type, image, owner) VALUES(@name, @process, @accessibility, @type, @image, @owner)", new { name = trainingsexercise.Name, process = trainingsexercise.Process, accessibility = trainingsexercise.Accessibility, type = trainingsexercise.Type, image = trainingsexercise.ImagePath, owner = trainingsexercise.Owner }).FirstOrDefault();
+        }
+        public void InsertUserTrainingsObject(IDbConnection connection, int ID_trainingsobject, int ID_user)
+        {
+            connection.Query("INSERT INTO user_trainingsobject(ID_user, ID_trainingsobject) VALUES (@ID_user, @ID_trainingsobject)", new { ID_user = ID_user, ID_trainingsobject = ID_trainingsobject });
         }
 
         public List<Trainingsobject> GetAllTrainingsObjectsOwner(IDbConnection connection, int userid)

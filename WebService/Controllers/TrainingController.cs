@@ -69,6 +69,12 @@ namespace WebService.Controllers
         {
             return Ok(trainingService.GetAllTrainingsExercisesForOwner(userid));
         }
-
+        
+        [HttpGet]
+        [ActionName("insertusertrainingsobject")]
+        public IHttpActionResult InsertUserTrainingsObject(int trainObj, int userid)
+        {
+            return Ok(trainingService.InsertUserTrainingsObject(trainObj, userid));
+        }
     }
 }

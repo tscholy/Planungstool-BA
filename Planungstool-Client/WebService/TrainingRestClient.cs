@@ -61,6 +61,26 @@ namespace Planungstool_Client.WebService
             return new List<Trainingsobject>();
         }
 
+        internal bool InsertUserTrainingsObject(int trainid)
+        {
+            try
+            {
+                var request = new RestRequest("training/insertusertrainingsobject", Method.GET);
+                request.AddParameter("trainObj", trainid);
+                request.AddParameter("userid", userID);
+                IRestResponse response = client.Execute(request);               
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    return true;
+                }
+
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+            return false;
+        }
 
         internal List<Trainingsobject> GetAllPublicTrainingsobjects()
         {

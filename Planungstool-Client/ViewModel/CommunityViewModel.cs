@@ -53,6 +53,17 @@ namespace Planungstool_Client.ViewModel
             }
         }
 
+        internal bool AddObjectToUser()
+        {
+            if(trainingRestClient.InsertUserTrainingsObject(selectedTrainObject.Id))
+            {
+                return true;
+            } else
+            {
+                return false;
+            }
+        }
+
         public Trainingsobject SelectedTrainObject
         {
             get

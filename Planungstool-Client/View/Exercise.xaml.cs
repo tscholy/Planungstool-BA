@@ -5,6 +5,7 @@ using Planungstool_Client.WebService;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -63,7 +64,13 @@ namespace Planungstool_Client.View
 
             if(trainingRestClient.SaveExercise(trainingsexercise))
             {
-                MessageBox.Show("Übung wurde erfolgreich gespeichert!");
+                if(MessageBoxResult.OK == MessageBox.Show("Übung wurde erfolgreich gespeichert!"))
+                {
+                    canvas.Children.Clear();
+                    textboxName.Text = "";
+                    textboxProcedure.Text = "";
+                    textboxType.Text = "";
+                }
             }
         }
 
@@ -71,14 +78,12 @@ namespace Planungstool_Client.View
         {
             get
             {
-                RenderTargetBitmap rtb = new RenderTargetBitmap((int)canvas.RenderSize.Width,
-                (int)canvas.RenderSize.Height, 96d, 96d, System.Windows.Media.PixelFormats.Default);
+                System.Windows.Size size = new System.Windows.Size(canvas.ActualWidth, canvas.ActualHeight);
+                RenderTargetBitmap rtb = new RenderTargetBitmap((int)canvas.RenderSize.Width, (int)canvas.RenderSize.Height, 96d, 96d, System.Windows.Media.PixelFormats.Default);
+                canvas.Arrange(new Rect(size));
                 rtb.Render(canvas);
-                double width = canvas.ActualWidth;
-                double height = canvas.ActualHeight;                
-                var crop = new CroppedBitmap(rtb, new Int32Rect(0, 0, (int)width, (int)height));
                 BitmapEncoder encoder = new BmpBitmapEncoder();
-                encoder.Frames.Add(BitmapFrame.Create(crop));
+                encoder.Frames.Add(BitmapFrame.Create(rtb));
                 using (MemoryStream mem = new MemoryStream())
                 {
                     encoder.Save(mem);
