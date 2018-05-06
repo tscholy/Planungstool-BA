@@ -1,4 +1,5 @@
 ﻿using Models;
+using Planungstool_Client.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,16 +22,42 @@ namespace Planungstool_Client.View
     /// </summary>
     public partial class Editor : UserControl
     {
+        private Library library;
+        private Community community;
+        private Exercise exercise;
         public Editor(User currentUser)
         {
             InitializeComponent();
-            Library library = new Library(currentUser);
+            library = new Library(currentUser);
             libTabItem.Content = library;
-            Community community = new Community(currentUser);
+            community = new Community(currentUser);
             comTabItem.Content = community;
-            Exercise exercise = new Exercise(currentUser);
+            exercise = new Exercise(currentUser);
             exerTabItem.Content = exercise;
 
         }
+
+        private void TabItem_Changed(object sender, SelectionChangedEventArgs e)
+        {
+            if(e.Source is TabControl)
+            {
+                TabItem tabItem = tabControl.SelectedItem as TabItem;
+                switch(tabItem.Name)
+                {
+                    case "exerTabItem":
+                        ((ExerciseViewModel)((Exercise)tabItem.Content).DataContext).Refresh();
+                        break;
+                    case "libTabItem":
+                        ((LibraryViewModel)((Library)tabItem.Content).DataContext).Refresh();
+                        break;
+                    case "comTabItem":
+                        ((CommunityViewModel)((Community)tabItem.Content).DataContext).Refresh();
+                        break;
+
+                }
+            }
+            e.Handled = true;
+        }
     }
+
 }

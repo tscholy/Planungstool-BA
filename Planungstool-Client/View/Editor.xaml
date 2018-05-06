@@ -11,7 +11,7 @@
     </UserControl.Background>
     <Grid>
         <DockPanel LastChildFill="True" Margin="0">
-            <TabControl>
+            <TabControl x:Name="tabControl" SelectionChanged="TabItem_Changed">
                 <TabControl.Resources>
                     <Style TargetType="TabItem">
                         <Setter Property="Template">

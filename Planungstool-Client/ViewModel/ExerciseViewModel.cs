@@ -15,9 +15,11 @@ namespace Planungstool_Client.ViewModel
         private List<Trainingsobject> currentTrainObjects;
         private Bitmap currentField;
         private TrainingRestClient trainingRestClient;
+        private User currentUser;
 
         public ExerciseViewModel(User user)
         {
+            currentUser = user;
             trainingRestClient = new TrainingRestClient(user.Id);
             CurrentField = new Bitmap(Properties.Resources.soccer);
             CurrentTrainObjects = trainingRestClient.GetAllTrainingsobjectsForUser(user.Id);
@@ -31,7 +33,10 @@ namespace Planungstool_Client.ViewModel
             }
             set
             {
-                SetProperty(ref currentTrainObjects, value);
+                if(value != null)
+                {
+                    SetProperty(ref currentTrainObjects, value);
+                }
             }
         }
 
@@ -45,6 +50,11 @@ namespace Planungstool_Client.ViewModel
             {
                 SetProperty(ref currentField, value);
             }
+        }
+
+        internal void Refresh()
+        {
+            CurrentTrainObjects = trainingRestClient.GetAllTrainingsobjectsForUser(currentUser.Id);
         }
     }
 }

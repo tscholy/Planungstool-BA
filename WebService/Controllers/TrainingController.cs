@@ -34,11 +34,40 @@ namespace WebService.Controllers
             return Ok(trainingService.InsertObject(trainingsobject, trainingsobject.Owner));
         }
 
+        [HttpPost]
+        [ActionName("insertexercise")]
+        public IHttpActionResult InsertExercise([FromBody]Trainingsexercise trainingsexercise)
+        {
+
+            return Ok(trainingService.InsertExercise(trainingsexercise, trainingsexercise.Owner));
+        }
+
         [HttpGet]
         [ActionName("allpublictrainingsobjects")]
         public IHttpActionResult GetAllPublicTrainingsobjects()
         {
             return Ok(trainingService.GetAllPublicTrainingsObjects());
+        }
+
+        [HttpGet]
+        [ActionName("allpublictrainingsexercises")]
+        public IHttpActionResult GetAllPublicTrainingsExercises()
+        {
+            return Ok(trainingService.GetAllPublicTrainingExercises());
+        }
+
+        [HttpGet]
+        [ActionName("allownertrainingsobjects")]
+        public IHttpActionResult GetAllTrainingsobjectsForOwner(int userid)
+        {
+            return Ok(trainingService.GetAllTrainingsObjectsForOwner(userid));
+        }
+
+        [HttpGet]
+        [ActionName("allownertrainingsexercises")]
+        public IHttpActionResult GetAllTrainingeExercisesForOwner(int userid)
+        {
+            return Ok(trainingService.GetAllTrainingsExercisesForOwner(userid));
         }
 
     }

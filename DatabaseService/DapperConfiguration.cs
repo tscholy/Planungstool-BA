@@ -17,6 +17,8 @@ namespace DatabaseService
             {
                 config.AddMap(new UserMapper());
                 config.AddMap(new TrainingsObjectMapper());
+                config.AddMap(new TrainingsExerciseMapper());
+                config.AddMap(new TrainingsUnitMapper());
             });
         }
     }

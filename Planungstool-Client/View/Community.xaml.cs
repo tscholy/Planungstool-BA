@@ -35,7 +35,13 @@ namespace Planungstool_Client.View
 
         private void SelectionChanged_Objects(object sender, SelectionChangedEventArgs e)
         {
+           
             communityViewModel.SelectedTrainObject = (Trainingsobject)((ListView)sender).SelectedItem;
+        }
+        private void SelectionChanged_Exercise(object sender, SelectionChangedEventArgs e)
+        {
+            
+            communityViewModel.SelectedTrainExercise = (Trainingsexercise)((ListView)sender).SelectedItem;
         }
     }
 }

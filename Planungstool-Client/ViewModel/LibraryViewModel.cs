@@ -1,4 +1,5 @@
 ﻿using Models;
+using Planungstool_Client.WebService;
 using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
@@ -12,12 +13,19 @@ namespace Planungstool_Client.ViewModel
     public class LibraryViewModel : BindableBase
     {
         private List<Trainingsobject> currentTrainingsobjects;
+        private List<Trainingsexercise> currentTrainingsexercises;
 
         private UserControl newUploadObjectControl;
+        private User currentUser;
+        private TrainingRestClient trainingRestClient;
 
-        public LibraryViewModel()
+        public LibraryViewModel(User currentUser)
         {
-            
+            trainingRestClient = new TrainingRestClient(currentUser.Id);
+            this.currentUser = currentUser;
+            CurrentTrainingsobjects = trainingRestClient.GetAllTrainingsobjectsForOwner(currentUser.Id);
+            CurrentTrainingsexercises = trainingRestClient.GetAllTrainingsExercisesForOwner(currentUser.Id);
+
         }
 
         public List<Trainingsobject> CurrentTrainingsobjects
@@ -30,6 +38,18 @@ namespace Planungstool_Client.ViewModel
             
         }
 
+        public List<Trainingsexercise> CurrentTrainingsexercises
+        {
+            get
+            {
+                return currentTrainingsexercises;
+            }
+            set
+            {
+                SetProperty(ref currentTrainingsexercises, value);
+            }
+        }
+
         public UserControl NewUploadObjectControl
         {
             get => newUploadObjectControl;
@@ -38,6 +58,12 @@ namespace Planungstool_Client.ViewModel
                 SetProperty(ref newUploadObjectControl, value);
             }
 
+        }
+
+        internal void Refresh()
+        {
+            CurrentTrainingsobjects = trainingRestClient.GetAllTrainingsobjectsForOwner(currentUser.Id);
+            CurrentTrainingsexercises = trainingRestClient.GetAllTrainingsExercisesForOwner(currentUser.Id);
         }
     }
 

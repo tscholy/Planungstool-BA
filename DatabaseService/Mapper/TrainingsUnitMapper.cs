@@ -1,18 +1,20 @@
 ﻿using Dapper.FluentMap.Mapping;
 using Models;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace DatabaseService.Mapper
 {
-    public class TrainingsObjectMapper : EntityMap<Trainingsobject>
+    public class TrainingsUnitMapper :  EntityMap<Trainingsunit>
     {
-        public TrainingsObjectMapper()
+        public TrainingsUnitMapper()
         {
             Map(x => x.Id).ToColumn("ID");
             Map(x => x.Name).ToColumn("name");
             Map(x => x.Description).ToColumn("description");
-            Map(x => x.Accessibility).ToColumn("accessibility");
-            Map(x => x.Image).ToColumn("image");
             Map(x => x.Owner).ToColumn("owner");
+
         }
     }
 }

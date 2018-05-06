@@ -23,17 +23,16 @@ namespace Planungstool_Client.View
     /// </summary>
     public partial class Library : UserControl
     {
-        LibraryViewModel libraryViewModel = new LibraryViewModel();
-        TrainingRestClient trainingRestClient;
+        private LibraryViewModel libraryViewModel;
         private User currentUser;
 
         public Library(User currentUser)
         {
             InitializeComponent();
             this.currentUser = currentUser;
-            trainingRestClient = new TrainingRestClient(currentUser.Id);
+            libraryViewModel = new LibraryViewModel(currentUser);
             this.DataContext = libraryViewModel;
-            libraryViewModel.CurrentTrainingsobjects = trainingRestClient.GetAllTrainingsobjectsForUser(currentUser.Id);
+            
 
         }
 

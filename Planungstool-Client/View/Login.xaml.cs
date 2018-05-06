@@ -29,8 +29,10 @@ namespace Planungstool_Client.View
 
         private void Click_Login(object sender, RoutedEventArgs e)
         {
-            UserRestClient userRestClient = new UserRestClient(2);
-            if (userRestClient.Login(usernameTextbox.Text, passwordTextbox.Password.ToString()))
+            UserRestClient userRestClient = new UserRestClient(-1);
+            //usernameTextbox.Text
+            //passwordTextbox.Password.ToString()
+            if (userRestClient.Login("admin", "admin"))
             {
                 mainVM.CurrentControl = new Editor(userRestClient.CurrentUser);
             }

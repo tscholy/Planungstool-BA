@@ -40,6 +40,28 @@ namespace Planungstool_Client.WebService
             return new List<Trainingsobject>();
         }
 
+        public List<Trainingsobject> GetAllTrainingsobjectsForOwner(int userID)
+        {
+            try
+            {
+                var request = new RestRequest("training/allownertrainingsobjects", Method.GET);
+                request.AddParameter("userid", userID);
+                IRestResponse response = client.Execute(request);
+                List<Trainingsobject> objects = JsonConvert.DeserializeObject<List<Trainingsobject>>(response.Content);
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    return objects;
+                }
+
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+            return new List<Trainingsobject>();
+        }
+
+
         internal List<Trainingsobject> GetAllPublicTrainingsobjects()
         {
             try
@@ -59,6 +81,48 @@ namespace Planungstool_Client.WebService
             }
             return new List<Trainingsobject>();
         }
+        
+
+        public List<Trainingsexercise> GetAllTrainingsExercisesForOwner(int userID)
+        {
+            try
+            {
+                var request = new RestRequest("training/allownertrainingsexercises", Method.GET);
+                request.AddParameter("userid", userID);
+                IRestResponse response = client.Execute(request);
+                List<Trainingsexercise> objects = JsonConvert.DeserializeObject<List<Trainingsexercise>>(response.Content);
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    return objects;
+                }
+
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+            return new List<Trainingsexercise>();
+        }
+
+        internal List<Trainingsexercise> GetAllPublicTrainingsExercises()
+        {
+            try
+            {
+                var request = new RestRequest("training/allpublictrainingsexercises", Method.GET);
+                IRestResponse response = client.Execute(request);
+                List<Trainingsexercise> objects = JsonConvert.DeserializeObject<List<Trainingsexercise>>(response.Content);
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    return objects;
+                }
+
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+            return new List<Trainingsexercise>();
+        }
 
         public bool SaveObject(Trainingsobject tobject)
         {
@@ -71,6 +135,28 @@ namespace Planungstool_Client.WebService
                 request.AddParameter("text/json", json, ParameterType.RequestBody);
                 IRestResponse response = client.Execute<List<Trainingsobject>>(request);
                 List<Trainingsobject> objects = JsonConvert.DeserializeObject<List<Trainingsobject>>(response.Content);
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    return true;
+                }
+
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+            return false;
+        }
+
+        public bool SaveExercise(Trainingsexercise trainingsexercise)
+        {
+            try
+            {
+                var request = new RestRequest("training/insertexercise", Method.POST);
+                var json = JsonConvert.SerializeObject(trainingsexercise);
+                request.AddParameter("text/json", json, ParameterType.RequestBody);
+                IRestResponse response = client.Execute<List<Trainingsexercise>>(request);
+                List<Trainingsexercise> objects = JsonConvert.DeserializeObject<List<Trainingsexercise>>(response.Content);
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
                     return true;

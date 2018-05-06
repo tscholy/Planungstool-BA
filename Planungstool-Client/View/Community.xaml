@@ -16,10 +16,11 @@
             <TextBox MinWidth="100"></TextBox>
             <Button Content="Search"></Button>            
         </StackPanel>
+        <Label DockPanel.Dock="Top" FontSize="20">Trainingsobjekte</Label>
         <DockPanel DockPanel.Dock="Top" LastChildFill="True">
             <DockPanel DockPanel.Dock="Right">
                 <Label DockPanel.Dock="Top" Content="Name" FontStyle="Oblique"/>
-                <Label DockPanel.Dock="Top" Content="{Binding Path=SelectedTrainObject.Name}"/>
+                <Label DockPanel.Dock="Top" Content="{Binding  Path=SelectedTrainObject.Name}"/>
                 <Label DockPanel.Dock="Top" Content="Beschreibung" FontStyle="Oblique"/>
                 <Label DockPanel.Dock="Top" Content="{Binding Path=SelectedTrainObject.Description}"/>
                 <Image MaxHeight="200" Source="{Binding Path=SelectedTrainObject.Image}"/>
@@ -45,6 +46,43 @@
                                 <ColumnDefinition MaxWidth="5" MinWidth="5"/>
                             </Grid.ColumnDefinitions>
                             <Image Source="{Binding Image, Converter={StaticResource ByteToImageSourceConverter}}" Grid.Column="1" Grid.Row="1" MaxWidth="40" MaxHeight="40"/>
+                            <Label Content="{Binding Name}" Grid.Column="1" Grid.Row="2"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </DockPanel>
+        <Label DockPanel.Dock="Top" FontSize="20">Trainingsübungen</Label>
+        <DockPanel DockPanel.Dock="Top">
+            <DockPanel DockPanel.Dock="Right" MinWidth="150">
+                <Label DockPanel.Dock="Top" Content="Name" FontStyle="Oblique"/>
+                <Label DockPanel.Dock="Top" Content="{Binding Path=SelectedTrainExercise.Name}"/>
+                <Label DockPanel.Dock="Top" Content="Ablauf" FontStyle="Oblique"/>
+                <Label DockPanel.Dock="Top" Content="{Binding Path=SelectedTrainExercise.Process}"/>
+                <Label DockPanel.Dock="Top" Content="Type" FontStyle="Oblique"/>
+                <Label DockPanel.Dock="Top" Content="{Binding Path=SelectedTrainExercise.Type}"/>
+            </DockPanel>
+            <ListView ItemsSource="{Binding CurrentPublicTrainingsexercises}" SelectionChanged="SelectionChanged_Exercise">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal" MaxHeight="100"></StackPanel>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition MaxHeight="5" MinHeight="5"/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition MaxHeight="5" MinHeight="5"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition MaxWidth="5" MinWidth="5"/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition MaxWidth="5" MinWidth="5"/>
+                            </Grid.ColumnDefinitions>
+                            <Image Source="{Binding Image, Converter={StaticResource ByteToImageSourceConverter}}" Grid.Column="1" Grid.Row="1" MaxWidth="200" MaxHeight="100"/>
                             <Label Content="{Binding Name}" Grid.Column="1" Grid.Row="2"/>
                         </Grid>
                     </DataTemplate>

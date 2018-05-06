@@ -12,13 +12,20 @@ namespace Planungstool_Client.ViewModel
     public class CommunityViewModel : BindableBase
     {
         private List<Trainingsobject> currentPublicTrainingsobjects;
+        private List<Trainingsexercise> currentPublicTrainingsexercises;
+
         private Trainingsobject selectedTrainObject;
+        private Trainingsexercise selectedTrainExercise;
+
         private TrainingRestClient trainingRestClient;
 
         public CommunityViewModel(User user)
         {
+            selectedTrainExercise = new Trainingsexercise();
+            SelectedTrainObject = new Trainingsobject();
             trainingRestClient = new TrainingRestClient(user.Id);
             CurrentPublicTrainingsobjects = trainingRestClient.GetAllPublicTrainingsobjects();
+            CurrentPublicTrainingsexercises = trainingRestClient.GetAllPublicTrainingsExercises();
 
         }
 
@@ -34,6 +41,18 @@ namespace Planungstool_Client.ViewModel
             }
         }
 
+        public List<Trainingsexercise> CurrentPublicTrainingsexercises
+        {
+            get
+            {
+                return currentPublicTrainingsexercises;
+            }
+            set
+            {
+                SetProperty(ref currentPublicTrainingsexercises, value);
+            }
+        }
+
         public Trainingsobject SelectedTrainObject
         {
             get
@@ -42,8 +61,32 @@ namespace Planungstool_Client.ViewModel
             }
             set
             {
-                SetProperty(ref selectedTrainObject, value);
+                if(value != null)
+                {
+                    SetProperty(ref selectedTrainObject, value);
+                }
             }
+        }
+
+        public Trainingsexercise SelectedTrainExercise
+        {
+            get
+            {
+                return selectedTrainExercise;
+            }
+            set
+            {
+                if(value != null)
+                {
+                    SetProperty(ref selectedTrainExercise, value);
+                }
+            }
+        }
+
+        internal void Refresh()
+        {
+            CurrentPublicTrainingsobjects = trainingRestClient.GetAllPublicTrainingsobjects();
+            CurrentPublicTrainingsexercises = trainingRestClient.GetAllPublicTrainingsExercises();
         }
     }
 }

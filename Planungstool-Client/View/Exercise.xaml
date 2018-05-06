@@ -9,12 +9,12 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <converter:BitmapToImageSourceConverter x:Key="BitmapToImageSourceConverter" />
-        <!--<converter:ByteToImageSourceConverter x:Key="ByteToImageSourceConverter" />-->
+        <converter:ByteToImageSourceConverter x:Key="ByteToImageSourceConverter" />
     </UserControl.Resources>
     <DockPanel Background="#FFE5E5E5" LastChildFill="False">
         <Label DockPanel.Dock="Top" FontSize="20">Neue Übung planen</Label>
-        <ScrollViewer DockPanel.Dock="Top">
-            <ListView ItemsSource="{Binding CurrentTrainObjects}">
+        <ScrollViewer DockPanel.Dock="Top" Background="Transparent">
+            <ListView Background="Transparent" ItemsSource="{Binding CurrentTrainObjects}">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel Orientation="Horizontal"></StackPanel>
@@ -34,7 +34,7 @@
                                 <ColumnDefinition/>
                                 <ColumnDefinition MaxWidth="5" MinWidth="5"/>
                             </Grid.ColumnDefinitions>
-                            <!--<Image Source="{Binding Image, Converter={StaticResource ByteToImageSourceConverter}}" Grid.Column="1" Grid.Row="1" MaxWidth="40" MaxHeight="40"/>-->
+                            <Image Source="{Binding Image, Converter={StaticResource ByteToImageSourceConverter}}" Grid.Column="1" Grid.Row="1" MaxWidth="40" MaxHeight="40"/>
                             <Label Content="{Binding Name}" Grid.Column="1" Grid.Row="2"/>
                         </Grid>
                     </DataTemplate>
@@ -49,8 +49,10 @@
         <DockPanel MinWidth="300" DockPanel.Dock="Right" LastChildFill="False">
             <Label DockPanel.Dock="Top" Content="Name" FontStyle="Italic"/>
             <TextBox DockPanel.Dock="Top" x:Name="textboxName"/>
+            <Label DockPanel.Dock="Top" Content="Typ" FontStyle="Italic"/>
+            <TextBox DockPanel.Dock="Top" x:Name="textboxType"/>
             <Label DockPanel.Dock="Top" Content="Ablauf" FontStyle="Italic"/>
-            <TextBlock DockPanel.Dock="Top" x:Name="textboxProcedure"/>
+            <TextBox DockPanel.Dock="Top" x:Name="textboxProcedure" MinHeight="50"/>
             <Label DockPanel.Dock="Top" Content="Zugriff" FontStyle="Italic"/>
             <StackPanel DockPanel.Dock="Top">
                 <RadioButton x:Name="radioButtonPrivate" GroupName="access" Content="Privat" IsChecked="True"/>
@@ -58,7 +60,7 @@
             </StackPanel>
             <Button Content="Upload" DockPanel.Dock="Top" FontSize="20" Foreground="White" Background="#FF86BF4E" Click="Button_Click_SaveExercise"/>
         </DockPanel>
-        <Canvas x:Name="canvas" DockPanel.Dock="Top" MinWidth="500" MinHeight="500">
+        <Canvas x:Name="canvas" DockPanel.Dock="Top" MinWidth="500" MinHeight="500" AllowDrop="True">
             <Canvas.Background>
                 <ImageBrush ImageSource="{Binding Path=CurrentField, Converter={StaticResource BitmapToImageSourceConverter}}"/>
             </Canvas.Background>

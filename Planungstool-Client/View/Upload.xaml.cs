@@ -43,18 +43,30 @@ namespace Planungstool_Client.View
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
             dlg.DefaultExt = ".png";
             dlg.Filter = "JPEG Files (*.jpeg)|*.jpeg|PNG Files (*.png)|*.png|JPG Files (*.jpg)|*.jpg|GIF Files (*.gif)|*.gif";
+            
 
             Nullable<bool> result = dlg.ShowDialog();
-            if (result == true)
+
+            FileInfo info = new FileInfo(dlg.FileName);
+            long maxSize = 500000;
+            if (info.Length < maxSize)
             {
-                memoryStreamFile = new MemoryStream();
-                using(FileStream fileStream = new FileStream(dlg.FileName, FileMode.Open))
+                if (result == true)
                 {
-                    fileStream.CopyTo(memoryStreamFile);
-                }               
-                string filename = dlg.FileName;
-                textboxFilename.Text = filename;
+                    memoryStreamFile = new MemoryStream();
+                    using (FileStream fileStream = new FileStream(dlg.FileName, FileMode.Open))
+                    {
+                        fileStream.CopyTo(memoryStreamFile);
+                    }
+                    string filename = dlg.FileName;
+                    textboxFilename.Text = filename;
+                }
             }
+            else
+            {
+                MessageBox.Show("File is too big. Choose a smaller one");
+            }
+            
         }
 
         private void Button_Click_Upload(object sender, RoutedEventArgs e)
