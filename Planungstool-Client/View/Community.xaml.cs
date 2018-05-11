@@ -50,9 +50,14 @@ namespace Planungstool_Client.View
 
         private void Button_AddObject(object sender, RoutedEventArgs e)
         {
+
             if(communityViewModel.AddObjectToUser())
             {
                 MessageBox.Show("Trainingsobjekt wurde erfolgreich hinzugefügt.");
+            }
+            else
+            {
+                MessageBox.Show("Sie sind der Owner des Objects!");
             }
         }
     }

@@ -24,5 +24,7 @@ namespace Models
         public int Owner { get; set; }
         [JsonProperty]
         public string ImagePath { get; set; }
+        [JsonProperty]
+        public int Parent { get; set; }
     }
 }

@@ -19,7 +19,11 @@ namespace DatabaseService.Repos
 
         public List<Trainingsobject> GetAllTrainingsObjects(IDbConnection dbConnection, int userID)
         {
-            return dbConnection.Query<Trainingsobject>("SELECT * FROM user_trainingsobject a JOIN trainingsobject b ON a.ID_trainingsobject = b.ID WHERE a.ID_user = @userID  OR b.owner = @userID GROUP BY b.ID", new { userID = userID }).ToList();
+            List<Trainingsobject> objects = dbConnection.Query<Trainingsobject>("SELECT * FROM user_trainingsobject a JOIN trainingsobject b ON a.ID_trainingsobject = b.ID WHERE a.ID_user = @userID", new { userID = userID }).ToList();
+            List<Trainingsobject> objects1 = GetAllTrainingsObjectsOwner(dbConnection, userID);
+            objects.AddRange(objects1);
+
+            return objects;
         }
 
         public List<Trainingsobject> InsertObject(IDbConnection connection, int userID, Trainingsobject trainingsobject)

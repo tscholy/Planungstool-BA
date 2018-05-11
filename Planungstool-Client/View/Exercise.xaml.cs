@@ -33,6 +33,8 @@ namespace Planungstool_Client.View
         private bool isDragging;
         private System.Windows.Point clickPosition;
 
+        bool m_bUnChkUpdating = false;
+
         public Exercise(User currentUser)
         {
             InitializeComponent();
@@ -60,13 +62,17 @@ namespace Planungstool_Client.View
             }
             trainingsexercise.Owner = currentUser.Id;
             trainingsexercise.Image = field.ToArray();
-            trainingsexercise.Type = textboxName.Text;
+            trainingsexercise.Type = textboxType.Text;
 
             if(trainingRestClient.SaveExercise(trainingsexercise))
             {
                 if(MessageBoxResult.OK == MessageBox.Show("Übung wurde erfolgreich gespeichert!"))
                 {
-                    canvas.Children.Clear();
+                    var images = canvas.Children.OfType<Canvas>().ToList();
+                    foreach (var image in images)
+                    {
+                        canvas.Children.Remove(image);
+                    }
                     textboxName.Text = "";
                     textboxProcedure.Text = "";
                     textboxType.Text = "";
@@ -158,5 +164,45 @@ namespace Planungstool_Client.View
             }
         }
 
+        private void RemoveLast_OnCanvas(object sender, RoutedEventArgs e)
+        {
+            List<Canvas> images = canvas.Children.OfType<Canvas>().ToList();
+            var element = images.LastOrDefault();
+            canvas.Children.Remove(element);
+        }
+
+        private void DeleteCanvas_OnClick(object sender, RoutedEventArgs e)
+        {
+            var images = canvas.Children.OfType<Canvas>().ToList();
+            foreach (var image in images)
+            {
+                canvas.Children.Remove(image);
+            }
+        }
+
+        private void RadioButton_IsChecked(object sender, RoutedEventArgs e)
+        {
+            RadioButton radioButton = (RadioButton)sender as RadioButton;
+            if(radioButton.Name == "radioButtonExisting")
+            {
+                grdExisting.Visibility = Visibility.Visible;
+                grdNew.Visibility = Visibility.Hidden;
+            }
+            else if (radioButton.Name == "radioButtonNewUnit")
+            {
+                grdExisting.Visibility = Visibility.Hidden;
+                grdNew.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void chkEnableUnit_Checked(object sender, RoutedEventArgs e)
+        {
+            stackPanelGroup.Visibility = Visibility.Visible;
+        }
+
+        private void chkEnableUnit_UnChecked(object sender, RoutedEventArgs e)
+        {
+            stackPanelGroup.Visibility = Visibility.Hidden;
+        }
     }
 }

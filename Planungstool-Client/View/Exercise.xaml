@@ -11,7 +11,7 @@
         <converter:BitmapToImageSourceConverter x:Key="BitmapToImageSourceConverter" />
         <converter:ByteToImageSourceConverter x:Key="ByteToImageSourceConverter" />
     </UserControl.Resources>
-    <DockPanel Background="#FFE5E5E5" LastChildFill="true">
+    <DockPanel>
         <Label DockPanel.Dock="Top" FontSize="20">Neue Übung planen</Label>
         <ScrollViewer DockPanel.Dock="Top" Background="Transparent">
             <ListView Background="Transparent" ItemsSource="{Binding CurrentTrainObjects}">
@@ -46,25 +46,66 @@
                 </ListView.ItemContainerStyle>
             </ListView>
         </ScrollViewer>
-        <DockPanel MinWidth="300" DockPanel.Dock="Right" LastChildFill="False">
-            <Label DockPanel.Dock="Top" Content="Name" FontStyle="Italic"/>
-            <TextBox DockPanel.Dock="Top" x:Name="textboxName"/>
-            <Label DockPanel.Dock="Top" Content="Typ" FontStyle="Italic"/>
-            <TextBox DockPanel.Dock="Top" x:Name="textboxType"/>
-            <Label DockPanel.Dock="Top" Content="Ablauf" FontStyle="Italic"/>
-            <TextBox DockPanel.Dock="Top" x:Name="textboxProcedure" MinHeight="50"/>
-            <Label DockPanel.Dock="Top" Content="Zugriff" FontStyle="Italic"/>
-            <StackPanel DockPanel.Dock="Top">
-                <RadioButton x:Name="radioButtonPrivate" GroupName="access" Content="Privat" IsChecked="True"/>
-                <RadioButton x:Name="radioButtonPublic" GroupName="access" Content="Öffentlich" />
-            </StackPanel>
-            <Button Content="Upload" DockPanel.Dock="Top" FontSize="20" Foreground="White" Background="#FF86BF4E" Click="Button_Click_SaveExercise"/>
+        <DockPanel Background="#FFE5E5E5" LastChildFill="true">        
+            <DockPanel MinWidth="300" DockPanel.Dock="Right" LastChildFill="False">
+                <Label DockPanel.Dock="Top" Content="Name" FontStyle="Italic"/>
+                <TextBox DockPanel.Dock="Top" x:Name="textboxName"/>
+                <Label DockPanel.Dock="Top" Content="Typ" FontStyle="Italic"/>
+                <TextBox DockPanel.Dock="Top" x:Name="textboxType"/>
+                <Label DockPanel.Dock="Top" Content="Ablauf" FontStyle="Italic"/>
+                <TextBox DockPanel.Dock="Top" x:Name="textboxProcedure" MinHeight="50"/>
+                <Label DockPanel.Dock="Top" Content="Zugriff" FontStyle="Italic"/>
+                <StackPanel DockPanel.Dock="Top">
+                    <RadioButton x:Name="radioButtonPrivate" GroupName="access" Content="Privat" IsChecked="True"/>
+                    <RadioButton x:Name="radioButtonPublic" GroupName="access" Content="Öffentlich" />
+                </StackPanel>
+
+                <GroupBox DockPanel.Dock="Top" Background="LightGray" MinHeight="150">
+                    <GroupBox.Header>
+                        <CheckBox x:Name="chkEnableUnit" Checked="chkEnableUnit_Checked" Unchecked="chkEnableUnit_UnChecked">Zu einer Trainingseinheit hinzufügen</CheckBox>
+                    </GroupBox.Header>
+                    <StackPanel x:Name="stackPanelGroup" Visibility="Hidden">
+                        <Grid Name="grdOne">
+                            <StackPanel>
+                                <RadioButton x:Name="radioButtonExisting" GroupName="unit" Content="bestehende Trainingseinheit" Checked="RadioButton_IsChecked"/>
+                                <RadioButton x:Name="radioButtonNewUnit" GroupName="unit" Content="neue Trainingseinheit" Checked="RadioButton_IsChecked" />
+                            </StackPanel>
+                        </Grid>
+                        <Grid Name="grdExisting" Visibility="Hidden">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <ComboBox Grid.Row="0" MinWidth="50"></ComboBox>
+                        </Grid>
+                        <Grid Name="grdNew" Visibility="Hidden">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Label Grid.Row="0">Name</Label>
+                            <TextBox Grid.Row="1" x:Name="textBoxNameUnit"></TextBox>
+                            <Label Grid.Row="2">Beschreibung</Label>
+                            <TextBox Grid.Row="3" x:Name="textBoxDescripUnit"></TextBox>
+                        </Grid>
+                    </StackPanel>
+                </GroupBox>
+                <Button Content="Upload" DockPanel.Dock="Top" FontSize="20" Foreground="White" Background="#FF86BF4E" Click="Button_Click_SaveExercise"/>
+                <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom">
+                    <Button Click="RemoveLast_OnCanvas" MinWidth="40" MinHeight="20" FontSize="15" Foreground="White" Background="#FF86BF4E" Margin="10">
+                        Rückgängig
+                    </Button>
+                    <Button Click="DeleteCanvas_OnClick" MinWidth="40" MinHeight="20" FontSize="15" Foreground="White" Background="#FF86BF4E" Margin="10">
+                        Alles Löschen
+                    </Button>
+                </StackPanel>
+            </DockPanel>
+            <Canvas x:Name="canvas" MinWidth="500" MinHeight="500" AllowDrop="True">
+                <Canvas.Background>
+                    <ImageBrush ImageSource="{Binding Path=CurrentField, Converter={StaticResource BitmapToImageSourceConverter}}"/>
+                </Canvas.Background>
+            </Canvas>
         </DockPanel>
-        <Canvas x:Name="canvas" MinWidth="500" MinHeight="500" AllowDrop="True">
-            <Canvas.Background>
-                <ImageBrush ImageSource="{Binding Path=CurrentField, Converter={StaticResource BitmapToImageSourceConverter}}"/>
-            </Canvas.Background>
-            <!---->
-        </Canvas>
     </DockPanel>
 </UserControl>

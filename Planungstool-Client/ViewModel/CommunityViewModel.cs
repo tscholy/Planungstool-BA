@@ -19,8 +19,11 @@ namespace Planungstool_Client.ViewModel
 
         private TrainingRestClient trainingRestClient;
 
+        private User currentUser;
+
         public CommunityViewModel(User user)
         {
+            currentUser = user;
             selectedTrainExercise = new Trainingsexercise();
             SelectedTrainObject = new Trainingsobject();
             trainingRestClient = new TrainingRestClient(user.Id);
@@ -55,6 +58,10 @@ namespace Planungstool_Client.ViewModel
 
         internal bool AddObjectToUser()
         {
+            if(selectedTrainObject.Owner == currentUser.Id)
+            {
+                return false;
+            }
             if(trainingRestClient.InsertUserTrainingsObject(selectedTrainObject.Id))
             {
                 return true;
