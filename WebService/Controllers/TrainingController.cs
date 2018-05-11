@@ -25,13 +25,27 @@ namespace WebService.Controllers
             return Ok(trainingService.GetAllTrainingsObjects(userid));
         }
 
-        
+        [HttpGet]
+        [ActionName("allpublictrainingsunits")]
+        public IHttpActionResult GetAllPublicTrainingsUnits()
+        {
+            return Ok(trainingService.GetAllPublicTrainingsUnits());
+        }
+
         [HttpPost]
         [ActionName("insertobject")]
         public IHttpActionResult InsertObject([FromBody]Trainingsobject trainingsobject)
         {
             
             return Ok(trainingService.InsertObject(trainingsobject, trainingsobject.Owner));
+        }
+
+        [HttpPost]
+        [ActionName("insertunit")]
+        public IHttpActionResult InsertUnit([FromBody]Trainingsunit trainingsunit)
+        {
+
+            return Ok(trainingService.InsertUnit(trainingsunit, trainingsunit.Owner));
         }
 
         [HttpPost]
@@ -63,13 +77,30 @@ namespace WebService.Controllers
             return Ok(trainingService.GetAllTrainingsObjectsForOwner(userid));
         }
 
+
+        [HttpGet]
+        [ActionName("allownertrainingsunits")]
+        public IHttpActionResult GetAllTrainingsUnitsForOwner(int userid)
+        {
+            return Ok(trainingService.GetAllTrainingsUnitsForOwner(userid));
+        }
+
         [HttpGet]
         [ActionName("allownertrainingsexercises")]
         public IHttpActionResult GetAllTrainingeExercisesForOwner(int userid)
         {
             return Ok(trainingService.GetAllTrainingsExercisesForOwner(userid));
         }
+
         
+
+        [HttpGet]
+        [ActionName("allexercisesforunit")]
+        public IHttpActionResult InsertUserTrainingsObject(int unitid)
+        {
+            return Ok(trainingService.GetAllExerciseForUnit(unitid));
+        }
+
         [HttpGet]
         [ActionName("insertusertrainingsobject")]
         public IHttpActionResult InsertUserTrainingsObject(int trainObj, int userid)

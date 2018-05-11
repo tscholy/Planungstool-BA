@@ -59,7 +59,6 @@
                     <RadioButton x:Name="radioButtonPrivate" GroupName="access" Content="Privat" IsChecked="True"/>
                     <RadioButton x:Name="radioButtonPublic" GroupName="access" Content="Öffentlich" />
                 </StackPanel>
-
                 <GroupBox DockPanel.Dock="Top" Background="LightGray" MinHeight="150">
                     <GroupBox.Header>
                         <CheckBox x:Name="chkEnableUnit" Checked="chkEnableUnit_Checked" Unchecked="chkEnableUnit_UnChecked">Zu einer Trainingseinheit hinzufügen</CheckBox>
@@ -75,7 +74,7 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
-                            <ComboBox Grid.Row="0" MinWidth="50"></ComboBox>
+                            <ComboBox x:Name="comboBoxUnits" ItemsSource="{Binding CurrentTrainUnits}" DisplayMemberPath="Name" SelectedValuePath="Id" Grid.Row="0" MinWidth="50"></ComboBox>
                         </Grid>
                         <Grid Name="grdNew" Visibility="Hidden">
                             <Grid.RowDefinitions>

@@ -13,6 +13,7 @@ namespace Planungstool_Client.ViewModel
     {
         private List<Trainingsobject> currentPublicTrainingsobjects;
         private List<Trainingsexercise> currentPublicTrainingsexercises;
+        private List<Trainingsunit> currentPublicTrainingsUnits;
 
         private Trainingsobject selectedTrainObject;
         private Trainingsexercise selectedTrainExercise;
@@ -27,8 +28,7 @@ namespace Planungstool_Client.ViewModel
             selectedTrainExercise = new Trainingsexercise();
             SelectedTrainObject = new Trainingsobject();
             trainingRestClient = new TrainingRestClient(user.Id);
-            CurrentPublicTrainingsobjects = trainingRestClient.GetAllPublicTrainingsobjects();
-            CurrentPublicTrainingsexercises = trainingRestClient.GetAllPublicTrainingsExercises();
+            Refresh();
 
         }
 
@@ -41,6 +41,18 @@ namespace Planungstool_Client.ViewModel
             set
             {
                 SetProperty(ref currentPublicTrainingsobjects, value);
+            }
+        }
+
+        public List<Trainingsunit> CurrentPublicTrainingsUnits
+        {
+            get
+            {
+                return currentPublicTrainingsUnits;
+            }
+            set
+            {
+                SetProperty(ref currentPublicTrainingsUnits, value);
             }
         }
 
@@ -105,6 +117,11 @@ namespace Planungstool_Client.ViewModel
         {
             CurrentPublicTrainingsobjects = trainingRestClient.GetAllPublicTrainingsobjects();
             CurrentPublicTrainingsexercises = trainingRestClient.GetAllPublicTrainingsExercises();
+            CurrentPublicTrainingsUnits = trainingRestClient.GetPublicTrainingsUnits();
+            foreach (Trainingsunit unit in CurrentPublicTrainingsUnits)
+            {
+                unit.Exercises = trainingRestClient.GetExercisesForUnit(unit.Id);
+            }
         }
     }
 }

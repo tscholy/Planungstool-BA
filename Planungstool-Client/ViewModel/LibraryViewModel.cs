@@ -14,6 +14,7 @@ namespace Planungstool_Client.ViewModel
     {
         private List<Trainingsobject> currentTrainingsobjects;
         private List<Trainingsexercise> currentTrainingsexercises;
+        private List<Trainingsunit> currentTrainingsUnits;
 
         private UserControl newUploadObjectControl;
         private User currentUser;
@@ -23,9 +24,7 @@ namespace Planungstool_Client.ViewModel
         {
             trainingRestClient = new TrainingRestClient(currentUser.Id);
             this.currentUser = currentUser;
-            CurrentTrainingsobjects = trainingRestClient.GetAllTrainingsobjectsForOwner(currentUser.Id);
-            CurrentTrainingsexercises = trainingRestClient.GetAllTrainingsExercisesForOwner(currentUser.Id);
-
+            Refresh();
         }
 
         public List<Trainingsobject> CurrentTrainingsobjects
@@ -38,6 +37,7 @@ namespace Planungstool_Client.ViewModel
             
         }
 
+
         public List<Trainingsexercise> CurrentTrainingsexercises
         {
             get
@@ -47,6 +47,18 @@ namespace Planungstool_Client.ViewModel
             set
             {
                 SetProperty(ref currentTrainingsexercises, value);
+            }
+        }
+
+        public List<Trainingsunit> CurrentTrainingsUnits
+        {
+            get
+            {
+                return currentTrainingsUnits;
+            }
+            set
+            {
+                SetProperty(ref currentTrainingsUnits, value);
             }
         }
 
@@ -64,6 +76,11 @@ namespace Planungstool_Client.ViewModel
         {
             CurrentTrainingsobjects = trainingRestClient.GetAllTrainingsobjectsForOwner(currentUser.Id);
             CurrentTrainingsexercises = trainingRestClient.GetAllTrainingsExercisesForOwner(currentUser.Id);
+            CurrentTrainingsUnits = trainingRestClient.GetAllTrainingsUnitForOwner(currentUser.Id);
+            foreach(Trainingsunit unit in CurrentTrainingsUnits)
+            {
+                unit.Exercises = trainingRestClient.GetExercisesForUnit(unit.Id);
+            }
         }
     }
 

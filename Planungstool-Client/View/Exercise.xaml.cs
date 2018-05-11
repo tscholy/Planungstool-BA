@@ -33,8 +33,6 @@ namespace Planungstool_Client.View
         private bool isDragging;
         private System.Windows.Point clickPosition;
 
-        bool m_bUnChkUpdating = false;
-
         public Exercise(User currentUser)
         {
             InitializeComponent();
@@ -47,24 +45,34 @@ namespace Planungstool_Client.View
 
         private void Button_Click_SaveExercise(object sender, RoutedEventArgs e)
         {
-            MemoryStream field = ImageFromCanvas;
-            trainingRestClient = new TrainingRestClient(currentUser.Id);
-            Trainingsexercise trainingsexercise = new Trainingsexercise();
-            trainingsexercise.Name = textboxName.Text;
-            trainingsexercise.Process = textboxProcedure.Text;
-            if(radioButtonPrivate.IsChecked == true)
-            {
-                trainingsexercise.Accessibility = "private";
-            }
-            else
-            {
-                trainingsexercise.Accessibility = "public";
-            }
-            trainingsexercise.Owner = currentUser.Id;
-            trainingsexercise.Image = field.ToArray();
-            trainingsexercise.Type = textboxType.Text;
 
-            if(trainingRestClient.SaveExercise(trainingsexercise))
+            trainingRestClient = new TrainingRestClient(currentUser.Id);
+            int parent = -1;
+            if(chkEnableUnit.IsChecked == true)
+            {
+                if (radioButtonNewUnit.IsChecked == true)
+                {
+                    Trainingsunit trainingsunit = new Trainingsunit();
+                    if (radioButtonPrivate.IsChecked == true)
+                    {
+                        trainingsunit.Accessibility = "private";
+                    }
+                    else
+                    {
+                        trainingsunit.Accessibility = "public";
+                    }
+                    trainingsunit.Description = textBoxDescripUnit.Text;
+                    trainingsunit.Name = textBoxNameUnit.Text;
+                    trainingsunit = trainingRestClient.SaveUnit(trainingsunit);
+                }
+                else if(radioButtonExisting.IsChecked == true)
+                {
+                    int id = (int)comboBoxUnits.SelectedValue;
+                    parent = id;
+                }
+            }         
+            
+            if(trainingRestClient.SaveExercise(GetExercise(parent)))
             {
                 if(MessageBoxResult.OK == MessageBox.Show("Übung wurde erfolgreich gespeichert!"))
                 {
@@ -78,6 +86,30 @@ namespace Planungstool_Client.View
                     textboxType.Text = "";
                 }
             }
+        }
+
+        private Trainingsexercise GetExercise(int parent)
+        {
+            MemoryStream field = ImageFromCanvas;
+            Trainingsexercise trainingsexercise = new Trainingsexercise();
+            trainingsexercise.Name = textboxName.Text;
+            trainingsexercise.Process = textboxProcedure.Text;
+            if (radioButtonPrivate.IsChecked == true)
+            {
+                trainingsexercise.Accessibility = "private";
+            }
+            else
+            {
+                trainingsexercise.Accessibility = "public";
+            }
+            trainingsexercise.Owner = currentUser.Id;
+            trainingsexercise.Image = field.ToArray();
+            trainingsexercise.Type = textboxType.Text;
+            if(parent > 0)
+            { 
+                trainingsexercise.Parent = parent;
+            }
+            return trainingsexercise;
         }
 
         private MemoryStream ImageFromCanvas

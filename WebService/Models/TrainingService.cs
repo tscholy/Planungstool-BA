@@ -28,6 +28,16 @@ namespace WebService.Models
           
         }
 
+        internal object GetAllPublicTrainingsUnits()
+        {
+            List<Trainingsunit> newObjects = new List<Trainingsunit>();
+            using (IDbConnection connection = provider.GetConnection())
+            {
+                newObjects = trainingsDataRepository.GetAllPublicTrainingsUnits(connection);
+            }
+            return newObjects;
+        }
+
         internal object InsertObject(Trainingsobject trainingsobject, int userid)
         {
             List<Trainingsobject> newObjects = new List<Trainingsobject>();
@@ -37,6 +47,14 @@ namespace WebService.Models
             }
 
             return newObjects;
+        }
+
+        internal object InsertUnit(Trainingsunit trainingsunit, int owner)
+        {
+            using (IDbConnection connection = provider.GetConnection())
+            {
+                return trainingsDataRepository.InsertUnit(connection, trainingsunit, owner);
+            }
         }
 
         internal object GetAllPublicTrainingsObjects()
@@ -71,6 +89,35 @@ namespace WebService.Models
             return newObjects;
         }
 
+        internal List<Trainingsunit> GetAllTrainingsUnitsForOwner(int userid)
+        {
+            List<Trainingsunit> newUnits = new List<Trainingsunit>();
+            using (IDbConnection connection = provider.GetConnection())
+            {
+                newUnits = trainingsDataRepository.GetAllfUnitsForOwner(connection, userid);
+            }
+            return newUnits;
+        }
+
+        internal object GetAllExerciseForUnit(object unitid)
+        {
+            List<Trainingsexercise> newUnits = new List<Trainingsexercise>();
+            using (IDbConnection connection = provider.GetConnection())
+            {
+                newUnits = trainingsDataRepository.GetAllExerciseForUnit(connection, unitid);
+            }
+            foreach (Trainingsexercise trainEx in newUnits)
+            {
+                MemoryStream memoryStream = new MemoryStream();
+                using (FileStream fs = new FileStream(trainEx.ImagePath, FileMode.Open))
+                {
+                    fs.CopyTo(memoryStream);
+                    trainEx.Image = memoryStream.ToArray();
+                }
+            }
+            return newUnits;
+        }
+
         internal List<Trainingsexercise> GetAllTrainingsExercisesForOwner(int userid)
         {
             List<Trainingsexercise> newObjects = new List<Trainingsexercise>();
@@ -90,7 +137,7 @@ namespace WebService.Models
             return newObjects;
         }
 
-        internal Trainingsexercise InsertExercise(Trainingsexercise trainingsexercise, int owner)
+        internal bool InsertExercise(Trainingsexercise trainingsexercise, int owner)
         {
             
             string name = trainingsexercise.Name + ".jpeg";
@@ -104,7 +151,8 @@ namespace WebService.Models
            
             using (IDbConnection connection = provider.GetConnection())
             {
-                return trainingsDataRepository.InsertExercise(connection, trainingsexercise, owner);
+                trainingsDataRepository.InsertExercise(connection, trainingsexercise, owner);
+                return true;
             }
         }
 

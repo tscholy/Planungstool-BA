@@ -14,7 +14,7 @@ namespace DatabaseService.Mapper
             Map(x => x.Name).ToColumn("name");
             Map(x => x.Description).ToColumn("description");
             Map(x => x.Owner).ToColumn("owner");
-
+            Map(x => x.Accessibility).ToColumn("accessibility");
         }
     }
 }

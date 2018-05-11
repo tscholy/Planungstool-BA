@@ -13,6 +13,8 @@ namespace Planungstool_Client.ViewModel
     public class ExerciseViewModel : BindableBase
     {
         private List<Trainingsobject> currentTrainObjects;
+        private List<Trainingsunit> currentTrainUnits;
+
         private Bitmap currentField;
         private TrainingRestClient trainingRestClient;
         private User currentUser;
@@ -22,7 +24,7 @@ namespace Planungstool_Client.ViewModel
             currentUser = user;
             trainingRestClient = new TrainingRestClient(user.Id);
             CurrentField = new Bitmap(Properties.Resources.soccer);
-            CurrentTrainObjects = trainingRestClient.GetAllTrainingsobjectsForUser(user.Id);
+            Refresh();
         }
 
         public List<Trainingsobject> CurrentTrainObjects
@@ -52,9 +54,22 @@ namespace Planungstool_Client.ViewModel
             }
         }
 
+        public List<Trainingsunit> CurrentTrainUnits
+        {
+            get
+            {
+                return currentTrainUnits;
+            }
+            set
+            {
+                SetProperty(ref currentTrainUnits, value);
+            }
+        }
+
         internal void Refresh()
         {
             CurrentTrainObjects = trainingRestClient.GetAllTrainingsobjectsForUser(currentUser.Id);
+            CurrentTrainUnits = trainingRestClient.GetAllTrainingsUnitForOwner(currentUser.Id);
         }
     }
 }

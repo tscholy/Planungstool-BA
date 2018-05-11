@@ -61,6 +61,70 @@ namespace Planungstool_Client.WebService
             return new List<Trainingsobject>();
         }
 
+        internal Trainingsunit SaveUnit(Trainingsunit trainingsunit)
+        {
+            try
+            {
+                var request = new RestRequest("training/insertunit", Method.POST);
+
+                var json = JsonConvert.SerializeObject(trainingsunit);
+                request.AddParameter("text/json", json, ParameterType.RequestBody);
+                IRestResponse response = client.Execute<Trainingsunit>(request);
+                Trainingsunit unit = JsonConvert.DeserializeObject<Trainingsunit>(response.Content);
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    return unit;
+                }
+
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+            return new Trainingsunit();
+        }
+
+        internal List<Trainingsexercise> GetExercisesForUnit(int id)
+        {
+            try
+            {
+                var request = new RestRequest("training/allexercisesforunit", Method.GET);
+                request.AddParameter("unitid", id);
+                IRestResponse response = client.Execute(request);
+                List<Trainingsexercise> objects = JsonConvert.DeserializeObject<List<Trainingsexercise>>(response.Content);
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    return objects;
+                }
+
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+            return new List<Trainingsexercise>();
+        }
+
+        internal List<Trainingsunit> GetPublicTrainingsUnits()
+        {
+            try
+            {
+                var request = new RestRequest("training/allpublictrainingsunits", Method.GET);
+                IRestResponse response = client.Execute(request);
+                List<Trainingsunit> objects = JsonConvert.DeserializeObject<List<Trainingsunit>>(response.Content);
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    return objects;
+                }
+
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+            return new List<Trainingsunit>();
+        }
+
         internal bool InsertUserTrainingsObject(int trainid)
         {
             try
@@ -122,6 +186,27 @@ namespace Planungstool_Client.WebService
                 MessageBox.Show(e.Message);
             }
             return new List<Trainingsexercise>();
+        }
+        public List<Trainingsunit> GetAllTrainingsUnitForOwner(int userID)
+        {
+            try
+            {
+                var request = new RestRequest("training/allownertrainingsunits", Method.GET);
+                request.AddParameter("userid", userID);
+                IRestResponse response = client.Execute(request);
+                List<Trainingsunit> objects = JsonConvert.DeserializeObject<List<Trainingsunit>>(response.Content);
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    return objects;
+                }
+
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+            return new List<Trainingsunit>();
+
         }
 
         internal List<Trainingsexercise> GetAllPublicTrainingsExercises()
