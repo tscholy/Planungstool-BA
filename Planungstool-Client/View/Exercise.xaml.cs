@@ -30,8 +30,9 @@ namespace Planungstool_Client.View
         private ExerciseViewModel exerciseViewModel;
         private User currentUser;
         private TrainingRestClient trainingRestClient;
-        private bool isDragging;
-        private System.Windows.Point clickPosition;
+        private DraggableControl selectedObject;
+
+        private double angle;
 
         public Exercise(User currentUser)
         {
@@ -39,7 +40,7 @@ namespace Planungstool_Client.View
             this.currentUser = currentUser;
             exerciseViewModel = new ExerciseViewModel(currentUser);
             this.DataContext = exerciseViewModel;
-
+            angle = 0;
 
         }
 
@@ -130,6 +131,8 @@ namespace Planungstool_Client.View
             }
         }
 
+        public DraggableControl SelectedObject { get => selectedObject; set => selectedObject = value; }
+
         private void ListViewItem_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             var item = sender as ListViewItem;
@@ -139,73 +142,38 @@ namespace Planungstool_Client.View
                 using (MemoryStream mem = new MemoryStream(trainingsobject.Image))
                 {
                     Bitmap bitmap = new Bitmap(mem);
-                    Canvas myCanvas1 = new Canvas();
-                    myCanvas1.MinHeight = 50;
-                    myCanvas1.MinWidth = 50;
+                    DraggableControl myCanvas1 = new DraggableControl(this);
+
+                    myCanvas1.ParentCanvas = canvas;
+                    myCanvas1.MinHeight = 15;
+                    myCanvas1.MinWidth = 15;
+                    myCanvas1.Height = 50;
+                    myCanvas1.Width = 50;
                     ImageBrush ib = new ImageBrush();
                     BitmapToImageSourceConverter converter = new BitmapToImageSourceConverter();
                     BitmapImage img = (BitmapImage)converter.Convert(bitmap, null, null, null);
                     ib.ImageSource = img;
-                    myCanvas1.Background = ib;
-                    myCanvas1.MouseLeftButtonDown += new MouseButtonEventHandler(Control_MouseLeftButtonDown);
-                    myCanvas1.MouseLeftButtonUp += new MouseButtonEventHandler(Control_MouseLeftButtonUp);
-                    myCanvas1.MouseMove += new MouseEventHandler(Control_MouseMove);
+                    myCanvas1.canvas.Background = ib;
 
                     Canvas.SetLeft(myCanvas1, 50);
                     Canvas.SetTop(myCanvas1, 50);
+
                     canvas.Children.Add(myCanvas1);
+                    myCanvas1.ParentCanvas = canvas;
+                    SelectedObject = myCanvas1;
                 }
             }
         }
-
-        private void Control_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            isDragging = true;
-            var draggableControl = sender as Canvas;
-            clickPosition = e.GetPosition(this);
-            draggableControl.CaptureMouse();
-        }
-
-        private void Control_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            isDragging = false;
-            var draggable = sender as Canvas;
-            if(draggable != null)
-            {
-                draggable.ReleaseMouseCapture();
-            }
-        }
-
-        private void Control_MouseMove(object sender, MouseEventArgs e)
-        {
-            var draggableControl = sender as Canvas;
-
-            if (isDragging && draggableControl != null)
-            {
-                System.Windows.Point currentPosition = e.GetPosition(this.Parent as UIElement);
-
-                var transform = draggableControl.RenderTransform as TranslateTransform;
-                if (transform == null)
-                {
-                    transform = new TranslateTransform();
-                    draggableControl.RenderTransform = transform;
-                }
-
-                transform.X = currentPosition.X - clickPosition.X;
-                transform.Y = currentPosition.Y - clickPosition.Y;
-            }
-        }
-
         private void RemoveLast_OnCanvas(object sender, RoutedEventArgs e)
         {
-            List<Canvas> images = canvas.Children.OfType<Canvas>().ToList();
+            List<DraggableControl> images = canvas.Children.OfType<DraggableControl>().ToList();
             var element = images.LastOrDefault();
             canvas.Children.Remove(element);
         }
 
         private void DeleteCanvas_OnClick(object sender, RoutedEventArgs e)
         {
-            var images = canvas.Children.OfType<Canvas>().ToList();
+            var images = canvas.Children.OfType<DraggableControl>().ToList();
             foreach (var image in images)
             {
                 canvas.Children.Remove(image);
@@ -235,6 +203,38 @@ namespace Planungstool_Client.View
         private void chkEnableUnit_UnChecked(object sender, RoutedEventArgs e)
         {
             stackPanelGroup.Visibility = Visibility.Hidden;
+        }
+
+        private void MinimizeSize_OnClick(object sender, RoutedEventArgs e)
+        {
+            SelectedObject.Height = SelectedObject.ActualHeight - 10;
+            SelectedObject.Width = SelectedObject.ActualWidth - 10;
+        }
+
+        private void MaximizeSize_OnClick(object sender, RoutedEventArgs e)
+        {
+            SelectedObject.Height = SelectedObject.ActualHeight + 10;
+            SelectedObject.Width = SelectedObject.ActualWidth + 10;
+        }
+
+        private void Rotate_OnClick(object sender, RoutedEventArgs e)
+        {
+            angle = angle + 10;
+            RotateTransform rotateTransform1 = new RotateTransform(angle, SelectedObject.ClickPosition.X, SelectedObject.ClickPosition.Y);
+            SelectedObject.RenderTransform = rotateTransform1;
+        }
+
+        private void SelectedField_Changed(object sender, SelectionChangedEventArgs e)
+        {
+            Trainingsobject trainingsobject = (Trainingsobject)listViewFields.SelectedItem;
+            if(trainingsobject != null)
+            {
+                using (MemoryStream mem = new MemoryStream(trainingsobject.Image))
+                {
+                    Bitmap img = new Bitmap(mem);
+                    exerciseViewModel.CurrentField = img;
+                }
+            }
         }
     }
 }

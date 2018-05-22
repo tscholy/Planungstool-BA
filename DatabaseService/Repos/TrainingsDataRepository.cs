@@ -22,13 +22,12 @@ namespace DatabaseService.Repos
             List<Trainingsobject> objects = dbConnection.Query<Trainingsobject>("SELECT * FROM user_trainingsobject a JOIN trainingsobject b ON a.ID_trainingsobject = b.ID WHERE a.ID_user = @userID", new { userID = userID }).ToList();
             List<Trainingsobject> objects1 = GetAllTrainingsObjectsOwner(dbConnection, userID);
             objects.AddRange(objects1);
-
             return objects;
         }
 
         public List<Trainingsobject> InsertObject(IDbConnection connection, int userID, Trainingsobject trainingsobject)
         {
-            connection.Query("INSERT INTO trainingsobject(name, description, accessibility, image, owner) VALUES(@name,@description,@accessibility,@image,@owner)", new { name = trainingsobject.Name, description = trainingsobject.Description, accessibility = trainingsobject.Accessibility, image = trainingsobject.Image, owner = trainingsobject.Owner });
+            connection.Query("INSERT INTO trainingsobject(name, description, accessibility, image, owner, uploadtype) VALUES(@name,@description,@accessibility,@image,@owner,@uploadtype)", new { name = trainingsobject.Name, description = trainingsobject.Description, accessibility = trainingsobject.Accessibility, image = trainingsobject.Image, owner = trainingsobject.Owner, uploadtype = (int)trainingsobject.Type });
             return connection.Query<Trainingsobject>("SELECT * FROM user_trainingsobject a JOIN trainingsobject b ON a.ID_trainingsobject = b.ID WHERE a.ID_user = @userID", new { userID = userID }).ToList();
         }
 

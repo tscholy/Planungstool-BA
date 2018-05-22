@@ -18,6 +18,7 @@ namespace DatabaseService.Mapper
             Map(x => x.ImagePath).ToColumn("image");
             Map(x => x.Owner).ToColumn("owner");
             Map(x => x.Parent).ToColumn("parent");
+
         }
     }
 }

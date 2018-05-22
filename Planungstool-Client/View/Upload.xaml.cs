@@ -82,6 +82,15 @@ namespace Planungstool_Client.View
             {
                 trainingsobject.Accessibility = "public";
             }
+            if (radioButtonField.IsChecked == true)
+            {
+                trainingsobject.Type = Enums.UploadType.Field;
+            }
+            else
+            {
+                trainingsobject.Type = Enums.UploadType.Object;
+            }
+
             trainingsobject.Image = memoryStreamFile.ToArray();
             trainingRestClient.SaveObject(trainingsobject);
             

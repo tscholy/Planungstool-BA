@@ -1,7 +1,9 @@
 ﻿using Newtonsoft.Json;
+using Planungstool_Client.Enums;
 using System;
 using System.Collections.Generic;
 using System.Text;
+
 
 namespace Models
 {
@@ -23,6 +25,8 @@ namespace Models
         public byte[] Image { get; set; }
         [JsonProperty]
         public int Owner { get; set; }
+        [JsonProperty]
+        public UploadType Type { get; set; }
 
     }
 }

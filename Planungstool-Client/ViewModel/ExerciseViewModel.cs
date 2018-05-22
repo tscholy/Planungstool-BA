@@ -14,6 +14,7 @@ namespace Planungstool_Client.ViewModel
     {
         private List<Trainingsobject> currentTrainObjects;
         private List<Trainingsunit> currentTrainUnits;
+        private List<Trainingsobject> currentFields;
 
         private Bitmap currentField;
         private TrainingRestClient trainingRestClient;
@@ -66,10 +67,24 @@ namespace Planungstool_Client.ViewModel
             }
         }
 
+        public List<Trainingsobject> CurrentFields
+        {
+            get
+            {
+                return currentFields;
+            }
+            set
+            {
+                SetProperty(ref currentFields, value);
+            }
+        }
+
         internal void Refresh()
         {
-            CurrentTrainObjects = trainingRestClient.GetAllTrainingsobjectsForUser(currentUser.Id);
+            List<Trainingsobject> objects = trainingRestClient.GetAllTrainingsobjectsForUser(currentUser.Id);
             CurrentTrainUnits = trainingRestClient.GetAllTrainingsUnitForOwner(currentUser.Id);
+            CurrentFields = objects.Where(x => x.Type == Enums.UploadType.Field).ToList();
+            CurrentTrainObjects = objects.Where(x => x.Type == Enums.UploadType.Object).ToList();
         }
     }
 }

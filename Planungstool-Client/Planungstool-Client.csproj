@@ -90,6 +90,9 @@
     <Compile Include="View\Community.xaml.cs">
       <DependentUpon>Community.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\DraggableControl.xaml.cs">
+      <DependentUpon>DraggableControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Editor.xaml.cs">
       <DependentUpon>Editor.xaml</DependentUpon>
     </Compile>
@@ -106,6 +109,10 @@
     <Compile Include="WebService\TrainingRestClient.cs" />
     <Compile Include="WebService\UserRestClient.cs" />
     <Page Include="View\Community.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\DraggableControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -199,5 +206,6 @@
   <ItemGroup>
     <None Include="Resources\delete.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
