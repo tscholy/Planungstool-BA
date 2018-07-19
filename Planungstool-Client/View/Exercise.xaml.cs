@@ -32,7 +32,6 @@ namespace Planungstool_Client.View
         private TrainingRestClient trainingRestClient;
         private DraggableControl selectedObject;
 
-        private double angle;
 
         public Exercise(User currentUser)
         {
@@ -40,7 +39,7 @@ namespace Planungstool_Client.View
             this.currentUser = currentUser;
             exerciseViewModel = new ExerciseViewModel(currentUser);
             this.DataContext = exerciseViewModel;
-            angle = 0;
+            
 
         }
 
@@ -219,9 +218,7 @@ namespace Planungstool_Client.View
 
         private void Rotate_OnClick(object sender, RoutedEventArgs e)
         {
-            angle = angle + 10;
-            RotateTransform rotateTransform1 = new RotateTransform(angle, SelectedObject.ClickPosition.X, SelectedObject.ClickPosition.Y);
-            SelectedObject.RenderTransform = rotateTransform1;
+            SelectedObject.Rotate();
         }
 
         private void SelectedField_Changed(object sender, SelectionChangedEventArgs e)

@@ -245,6 +245,7 @@ C:\Users\Christina\Documents\Visual Studio 2017\Projects\BA\Planungstool-BA\Plan
 C:\Users\Christina\Documents\Visual Studio 2017\Projects\BA\Planungstool-BA\Planungstool-Client\obj\Debug\Planungstool-Client.csprojResolveAssemblyReference.cache
 C:\Users\Christina\Documents\Visual Studio 2017\Projects\BA\Planungstool-BA\Planungstool-Client\obj\Debug\Planungstool-Client.exe.config
 C:\Users\Christina\Documents\Visual Studio 2017\Projects\BA\Planungstool-BA\Planungstool-Client\obj\Debug\View\Community.g.cs
+C:\Users\Christina\Documents\Visual Studio 2017\Projects\BA\Planungstool-BA\Planungstool-Client\obj\Debug\View\DraggableControl.g.cs
 C:\Users\Christina\Documents\Visual Studio 2017\Projects\BA\Planungstool-BA\Planungstool-Client\obj\Debug\View\Editor.g.cs
 C:\Users\Christina\Documents\Visual Studio 2017\Projects\BA\Planungstool-BA\Planungstool-Client\obj\Debug\View\Exercise.g.cs
 C:\Users\Christina\Documents\Visual Studio 2017\Projects\BA\Planungstool-BA\Planungstool-Client\obj\Debug\View\Library.g.cs
@@ -256,6 +257,7 @@ C:\Users\Christina\Documents\Visual Studio 2017\Projects\BA\Planungstool-BA\Plan
 C:\Users\Christina\Documents\Visual Studio 2017\Projects\BA\Planungstool-BA\Planungstool-Client\obj\Debug\Planungstool-Client_MarkupCompile.cache
 C:\Users\Christina\Documents\Visual Studio 2017\Projects\BA\Planungstool-BA\Planungstool-Client\obj\Debug\Planungstool-Client_MarkupCompile.lref
 C:\Users\Christina\Documents\Visual Studio 2017\Projects\BA\Planungstool-BA\Planungstool-Client\obj\Debug\View\Community.baml
+C:\Users\Christina\Documents\Visual Studio 2017\Projects\BA\Planungstool-BA\Planungstool-Client\obj\Debug\View\DraggableControl.baml
 C:\Users\Christina\Documents\Visual Studio 2017\Projects\BA\Planungstool-BA\Planungstool-Client\obj\Debug\View\Editor.baml
 C:\Users\Christina\Documents\Visual Studio 2017\Projects\BA\Planungstool-BA\Planungstool-Client\obj\Debug\View\Exercise.baml
 C:\Users\Christina\Documents\Visual Studio 2017\Projects\BA\Planungstool-BA\Planungstool-Client\obj\Debug\View\Library.baml
@@ -268,5 +270,3 @@ C:\Users\Christina\Documents\Visual Studio 2017\Projects\BA\Planungstool-BA\Plan
 C:\Users\Christina\Documents\Visual Studio 2017\Projects\BA\Planungstool-BA\Planungstool-Client\obj\Debug\Planungstool-Client.csproj.CoreCompileInputs.cache
 C:\Users\Christina\Documents\Visual Studio 2017\Projects\BA\Planungstool-BA\Planungstool-Client\obj\Debug\Planungstool-Client.exe
 C:\Users\Christina\Documents\Visual Studio 2017\Projects\BA\Planungstool-BA\Planungstool-Client\obj\Debug\Planungstool-Client.pdb
-C:\Users\Christina\Documents\Visual Studio 2017\Projects\BA\Planungstool-BA\Planungstool-Client\obj\Debug\View\DraggableControl.g.cs
-C:\Users\Christina\Documents\Visual Studio 2017\Projects\BA\Planungstool-BA\Planungstool-Client\obj\Debug\View\DraggableControl.baml

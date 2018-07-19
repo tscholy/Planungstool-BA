@@ -19,7 +19,7 @@ namespace Planungstool_Client.ViewModel
         private Bitmap currentField;
         private TrainingRestClient trainingRestClient;
         private User currentUser;
-
+        
         public ExerciseViewModel(User user)
         {
             currentUser = user;

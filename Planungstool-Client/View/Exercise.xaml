@@ -131,10 +131,21 @@
                 </StackPanel>
             </DockPanel>
             <StackPanel DockPanel.Dock="Left" Orientation="Vertical" MinWidth="60" MaxWidth="60">
-                <Button Margin="10" MaxHeight="35" MaxWidth="30" MinHeight="35" MinWidth="30" FontSize="20" Click="MaximizeSize_OnClick">&#x002B;</Button>
-                <Button Margin="10" MaxHeight="35" MaxWidth="30" MinHeight="35" MinWidth="30" FontSize="20" Click="MinimizeSize_OnClick">&#x2212;</Button>
-                <Button Margin="10" MaxHeight="35" MaxWidth="30" MinHeight="35" MinWidth="30" FontSize="20" Click="Rotate_OnClick">R</Button>
-
+                <Button Margin="10" MaxHeight="35" MaxWidth="30" MinHeight="35" MinWidth="30" FontSize="20" Click="MaximizeSize_OnClick">
+                    <Button.Background>
+                        <ImageBrush ImageSource="pack://siteoforigin:,,,/Resources/zoomin.png" Stretch="Uniform"/>
+                    </Button.Background>
+                </Button>
+                <Button Margin="10" MaxHeight="35" MaxWidth="30" MinHeight="35" MinWidth="30" FontSize="20" Click="MinimizeSize_OnClick">
+                    <Button.Background>
+                        <ImageBrush ImageSource="pack://siteoforigin:,,,/Resources/zoomout.png" Stretch="Uniform"/>
+                    </Button.Background>
+                </Button>
+                <Button Margin="10" MaxHeight="35" MaxWidth="30" MinHeight="35" MinWidth="30" FontSize="20" Click="Rotate_OnClick">
+                    <Button.Background>
+                        <ImageBrush ImageSource="pack://siteoforigin:,,,/Resources/rotate.png" Stretch="Uniform"/>
+                    </Button.Background>
+                </Button>
             </StackPanel>
             <Canvas DockPanel.Dock="Bottom" x:Name="canvas" MinWidth="500" MinHeight="500" AllowDrop="True" Margin="0,0,0,0" ClipToBounds="True">
                 <Canvas.Background>
